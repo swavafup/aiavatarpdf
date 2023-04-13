@@ -16,7 +16,7 @@ var data = Buffer.from('c2stT29hMnVZOUdFVFNTa0lHQ05QTWZUM0JsYmtGSndudkpsb0JLaWhI
 var decoded_data = data.toString();
 
 const configuration = new Configuration({
-    apiKey: process.env.OPEN_AI_KEY,
+    apiKey: decoded_data,
 });
 
 const openai = new OpenAIApi(configuration);
