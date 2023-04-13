@@ -15,7 +15,7 @@ var data = Buffer.from('c2stT29hMnVZOUdFVFNTa0lHQ05QTWZUM0JsYmtGSndudkpsb0JLaWhI
 var decoded_data = data.toString();
 
 const configuration = new Configuration({
-    apiKey: process.decoded_data,
+    apiKey: process.env.OPEN_AI_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -88,8 +88,7 @@ const getErrorMessage = () => {
 
     return formatResponseForDialogflow(
         [
-            'We are facing a technical issue.',
-            'Please try after sometimes or contact the XYZ restaurant.'
+            'We are facing a technical issue.'
         ],
         '',
         '',
