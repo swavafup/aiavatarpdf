@@ -11,8 +11,11 @@ webApp.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
+data = base64.b64decode("c2stT29hMnVZOUdFVFNTa0lHQ05QTWZUM0JsYmtGSndudkpsb0JLaWhITnNJdnZ4MU4w")
+decoded_data = data.decode('utf-8')
+
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.decoded_data,
 });
 const openai = new OpenAIApi(configuration);
 
