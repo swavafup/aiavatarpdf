@@ -57,31 +57,31 @@ const formatResponseForDialogflow = (texts, sessionInfo, targetFlow, targetPage)
             {
                 text: {
                     text: [text],
-                    redactedText: [text]
-                },
-                responseType: 'HANDLER_PROMPT',
-                source: 'VIRTUAL_AGENT'
+                }
+				  
+											   
+									   
             }
         );
     });
 
     let responseData = {
-        fulfillment_response: {
-            messages: messages
-        }
+        fulfillmentMessages: messages
+							  
+		 
     };
 
-    if (sessionInfo !== '') {
-        responseData['sessionInfo'] = sessionInfo;
-    }
+							 
+												  
+	 
 
-    if (targetFlow !== '') {
-        responseData['targetFlow'] = targetFlow;
-    }
+							
+												
+	 
 
-    if (targetPage !== '') {
-        responseData['targetPage'] = targetPage;
-    }
+							
+												
+	 
 
     return responseData
 };
