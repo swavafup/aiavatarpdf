@@ -1,5 +1,6 @@
 const express = require('express');
 const { Configuration, OpenAIApi } = require("openai");
+
 require('dotenv').config();
 
 const webApp = express();
@@ -28,7 +29,7 @@ const textGeneration = async (prompt) => {
             model: 'text-davinci-003',
             prompt: `Human: ${prompt}\nAI: `,
             temperature: 0.5,
-            max_tokens: 40,
+            max_tokens: 100,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0.6,
@@ -47,7 +48,6 @@ const textGeneration = async (prompt) => {
     }
 };
 
-
 const formatResponseForDialogflow = (texts, sessionInfo, targetFlow, targetPage) => {
 
     messages = []
@@ -57,31 +57,22 @@ const formatResponseForDialogflow = (texts, sessionInfo, targetFlow, targetPage)
             {
                 text: {
                     text: [text],
-                    redactedText: [text]
-                },
-                responseType: 'HANDLER_PROMPT',
-                source: 'VIRTUAL_AGENT'
+                }
+				  
+											   
+									   
             }
         );
     });
 
     let responseData = {
-        fulfillment_response: {
-            messages: messages
-        }
+        fulfillmentMessages: messages
+							  
+		 
     };
 
-    if (sessionInfo !== '') {
-        responseData['sessionInfo'] = sessionInfo;
-    }
+							 
 
-    if (targetFlow !== '') {
-        responseData['targetFlow'] = targetFlow;
-    }
-
-    if (targetPage !== '') {
-        responseData['targetPage'] = targetPage;
-    }
 
     return responseData
 };
@@ -102,44 +93,38 @@ webApp.get('/', (req, res) => {
     res.sendStatus(200);
 });
 
+
 webApp.post('/dialogflow', async (req, res) => {
+    
+    let action = req.body.queryResult.action;
+    let queryText = req.body.queryResult.queryText;
 
-    let tag = req.body.fulfillmentInfo.tag;
-    let query = req.body.text;
-
-    console.log('A new request came...');
-    console.log(tag);
-    console.log(new Date())
-
-    if (tag === 'sampleResponse') {
-        let result = await textGeneration(query);
+    if (action === 'input.unknown') {
+        let result = await textGeneration(queryText);
         if (result.status == 1) {
-            res.send(formatResponseForDialogflow(
-                [
-                    result.response
-                ],
-                '',
-                '',
-                ''
-            ));
+            res.send(
+                {
+                    fulfillmentText: result.response
+                }
+            );
         } else {
-            res.send(getErrorMessage());
+            res.send(
+                {
+                    fulfillmentText: `Sorry, I'm not able to help with that.`
+                }
+            );
         }
-
     } else {
         res.send(
-            formatResponseForDialogflow(
-                [
-                    'This is from the webhook.',
-                    'There is no tag set for this request.'
-                ],
-                '',
-                '',
-                ''
-            )
+            {
+                fulfillmentText: `No handler for the action ${action}.`
+            }
         );
     }
 });
+
+
+
 
 webApp.listen(PORT, () => {
     console.log(`Server is up and running at ${PORT}`);
