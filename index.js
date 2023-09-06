@@ -1,9 +1,6 @@
-
-<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-
 const express = require('express');
 const { Configuration, OpenAIApi } = require("openai");
+const firebase = require('firebase');
 
 require('dotenv').config();
 
