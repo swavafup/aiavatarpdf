@@ -124,8 +124,116 @@ webApp.post('/dialogflow', async (req, res) => {
 });
 
 
+firebaseConfig = {
+    'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
+    'authDomain': "loginwithstreamlit.firebaseapp.com",
+    'projectId': "loginwithstreamlit",
+    'databaseURL': "https://loginwithstreamlit-default-rtdb.firebaseio.com",
+    'storageBucket': "loginwithstreamlit.appspot.com",
+    'messagingSenderId': "286638028806",
+    'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
+    'measurementId': "G-SFTNJ19HS6"
+}
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
+const email = "swavaf3693@gmail.com";
+const password = "Swavaf@123";
+
+firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    // User is signed in
+    const user = userCredential.user;
+    console.log("User signed in:", user);
+  })
+  .catch((error) => {
+    // Handle errors
+    console.error("Sign-in error:", error);
+  });
+
+// Reference to the database
+const database = firebase.database();
+
+const user = firebase.auth().currentUser;
+
+if (user) {
+  // Assuming you have stored the user's unique identifier (UID) in your database under "users"
+  const userId = user.uid;
+
+  // Reference to the user's data
+   const userRef = database.ref(userId);
+
+  // Retrieve the "request" field
+  userRef.child("request").once("value")
+    .then((snapshot) => {
+      const request = snapshot.val();
+      if (request !== null) {
+        console.log(`Request: ${request}`);
+	const newData = {	
+            email : "email sample",
+            status : "true",
+            request : "request sample",
+            response : "response sample"
+	};
+	database.ref(userId).push(newData)
+  .then(() => {
+    console.log("Data saved successfully");
+  })
+  .catch((error) => {
+    console.error("Data save error:", error);
+  });
+      } else {
+        console.log("Request not found in the database.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error retrieving data:", error);
+    });
+
+    // Retrieve the "response" field
+  userRef.child("response").once("value")
+    .then((snapshot) => {
+      const response = snapshot.val();
+      if (response !== null) {
+        console.log(`Request: ${response}`);
+      } else {
+        console.log("Request not found in the database.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error retrieving data:", error);
+    });
+
+
+} else {
+  console.log("User is not authenticated. Please log in first.");
+}
+
+// Data to be saved
+// const newData = {
+//             email : email,
+//             status : "false",
+//             request : "",
+//             response : ""
+// };
+
+// // Push data to a specific location (e.g., "users")
+// database.ref("users").push(newData)
+//   .then(() => {
+//     console.log("Data saved successfully");
+//   })
+//   .catch((error) => {
+//     console.error("Data save error:", error);
+//   });
 
 
 webApp.listen(PORT, () => {
     console.log(`Server is up and running at ${PORT}`);
 });
+
+
+
+
