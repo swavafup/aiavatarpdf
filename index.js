@@ -5,7 +5,7 @@ const { Configuration, OpenAIApi } = require("openai");
 // <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
 	
 const firebase = require('firebase/app');
-require('firebase/auth');
+const firebaseauth = require('firebase/auth');
 
 require('dotenv').config();
 
@@ -150,7 +150,7 @@ firebase.initializeApp(firebaseConfig);
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
-firebase.auth().signInWithEmailAndPassword(email, password)
+firebaseauth.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // User is signed in
     const user = userCredential.user;
@@ -164,7 +164,7 @@ firebase.auth().signInWithEmailAndPassword(email, password)
 // Reference to the database
 const database = firebase.database();
 
-const user = firebase.auth().currentUser;
+const user = firebaseauth.auth().currentUser;
 
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
