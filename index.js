@@ -130,8 +130,6 @@ webApp.post('/dialogflow', async (req, res) => {
     }
 });
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
 
 
 firebaseConfig = {
