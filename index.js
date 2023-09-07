@@ -6,6 +6,7 @@ const { Configuration, OpenAIApi } = require("openai");
 	
 const firebase = require('firebase/app');
 require('firebase/auth');
+require('firebase/database');
 
 require('dotenv').config();
 
@@ -147,12 +148,10 @@ firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const auth = firebaseApp.auth();
-
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
-auth.signInWithEmailAndPassword(email, password)
+firebaseApp.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // User is signed in
     const user = userCredential.user;
