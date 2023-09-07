@@ -5,6 +5,7 @@ const { Configuration, OpenAIApi } = require("openai");
 // <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
 	
 const firebase = require('firebase/app');
+require('firebase/auth');
 
 require('dotenv').config();
 
