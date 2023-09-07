@@ -1,6 +1,6 @@
 const express = require('express');
 const { Configuration, OpenAIApi } = require("openai");
-const firebase = require('firebase');
+// const firebase = require('firebase');
 
 require('dotenv').config();
 
