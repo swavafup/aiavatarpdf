@@ -146,10 +146,12 @@ firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+const auth = firebaseApp.auth();
+
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
-firebaseApp.auth().signInWithEmailAndPassword(email, password)
+auth.signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // User is signed in
     const user = userCredential.user;
