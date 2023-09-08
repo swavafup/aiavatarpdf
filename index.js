@@ -154,7 +154,7 @@ console.log(firebaseApp);
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
-const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+const userCredential = firebase.auth().signInWithEmailAndPassword(email, password);
 
 
 // firebaseApp.auth().signInWithEmailAndPassword(email, password)
