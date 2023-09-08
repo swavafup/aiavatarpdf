@@ -154,16 +154,19 @@ console.log(firebaseApp);
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
-firebaseApp.auth().signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // User is signed in
-    const user = userCredential.user;
-    console.log("User signed in:", user);
-  })
-  .catch((error) => {
-    // Handle errors
-    console.error("Sign-in error:", error);
-  });
+const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+
+
+// firebaseApp.auth().signInWithEmailAndPassword(email, password)
+//   .then((userCredential) => {
+//     // User is signed in
+//     const user = userCredential.user;
+//     console.log("User signed in:", user);
+//   })
+//   .catch((error) => {
+//     // Handle errors
+//     console.error("Sign-in error:", error);
+//   });
 
 // Reference to the database
 const database = firebaseApp.database();
