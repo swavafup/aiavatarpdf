@@ -149,6 +149,8 @@ firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+console.log(firebaseApp);
+
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
