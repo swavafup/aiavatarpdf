@@ -133,6 +133,8 @@ const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
+import { getAuth } from "firebase/auth";
+
 
 firebaseConfig = {
     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
