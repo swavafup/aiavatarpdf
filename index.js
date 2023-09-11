@@ -151,9 +151,9 @@ firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-console.log(firebaseApp);
 
 const auth = getAuth(firebaseApp);
+console.log(auth);
 
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
@@ -175,7 +175,7 @@ signInWithEmailAndPassword(auth, email, password)
 // Reference to the database
 // const database = firebaseApp.database();
 
-const user = auth().currentUser;
+const user = auth.currentUser;
 
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
