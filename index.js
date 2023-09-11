@@ -133,7 +133,7 @@ const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
-import { getAuth } from "firebase/auth";
+const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 
 
 firebaseConfig = {
@@ -153,13 +153,15 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 console.log(firebaseApp);
 
+const auth = getAuth(firebaseApp);
+
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
 // const userCredential = firebase.auth().signInWithEmailAndPassword(email, password);
 
 
-firebaseApp.getAuth().signInWithEmailAndPassword(email, password)
+signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // User is signed in
     const user = userCredential.user;
