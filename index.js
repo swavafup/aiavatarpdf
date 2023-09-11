@@ -173,9 +173,9 @@ signInWithEmailAndPassword(auth, email, password)
   });
 
 // Reference to the database
-const database = firebaseApp.database();
+// const database = firebaseApp.database();
 
-const user = firebaseApp.auth().currentUser;
+const user = auth().currentUser;
 
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
