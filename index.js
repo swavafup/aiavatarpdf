@@ -153,7 +153,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
 const auth = getAuth(firebaseApp);
-console.log(auth);
+// console.log(auth);
 
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
