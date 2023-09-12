@@ -134,6 +134,9 @@ require('firebase/auth');
 require('firebase/database');
 
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+const { getDatabase } = require("firebase/database");
+
+
 
 
 firebaseConfig = {
