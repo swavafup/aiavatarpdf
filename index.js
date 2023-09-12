@@ -134,7 +134,7 @@ require('firebase/auth');
 require('firebase/database');
 
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
-const { getDatabase } = require("firebase/database");
+const { getDatabase, ref, get, set} = require("firebase/database");
 
 
 
@@ -188,7 +188,7 @@ if (user) {
 	
   // Reference to the user's data
    const database = getDatabase();
-   const userRef = database.ref(userId);
+   const userRef = ref(userId);
 
   // Retrieve the "request" field
   userRef.child("request").once("value")
@@ -202,7 +202,7 @@ if (user) {
             request : "request sample",
             response : "response sample"
 	};
-	database.ref(userId).push(newData)
+	ref(userId).push(newData)
   .then(() => {
     console.log("Data saved successfully");
   })
