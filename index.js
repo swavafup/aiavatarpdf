@@ -193,48 +193,67 @@ if (user) {
   const childPath = "request"; // Replace with the actual child node name
 
 // Create a reference to the child location
-  const childRef = ref(userRef, childPath);
+  // const childRef = ref(userRef, childPath);
+
+  get(userRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        console.log(userData);
+      } else {
+        console.log('No data available for this user.');
+      }
+   })
+    .catch((error) => {
+      console.error('Error getting data:', error);
+    });
+
+
+
+
+
+
 
   // Retrieve the "request" field
-  childRef.once("value")
-    .then((snapshot) => {
-      const request = snapshot.val();
-      if (request !== null) {
-        console.log(`Request: ${request}`);
-	const newData = {	
-            email : "email sample",
-            status : "true",
-            request : "request sample",
-            response : "response sample"
-	};
-	ref(database, userId).push(newData)
-  .then(() => {
-    console.log("Data saved successfully");
-  })
-  .catch((error) => {
-    console.error("Data save error:", error);
-  });
-      } else {
-        console.log("Request not found in the database.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error retrieving data:", error);
-    });
+ //  childRef.once("value")
+ //    .then((snapshot) => {
+ //      const request = snapshot.val();
+ //      if (request !== null) {
+ //        console.log(`Request: ${request}`);
+	// const newData = {	
+ //            email : "email sample",
+ //            status : "true",
+ //            request : "request sample",
+ //            response : "response sample"
+	// };
+	// ref(database, userId).push(newData)
+ //  .then(() => {
+ //    console.log("Data saved successfully");
+ //  })
+ //  .catch((error) => {
+ //    console.error("Data save error:", error);
+ //  });
+ //      } else {
+ //        console.log("Request not found in the database.");
+ //      }
+ //    })
+ //    .catch((error) => {
+ //      console.error("Error retrieving data:", error);
+ //    });
 
     // Retrieve the "response" field
-  userRef.child("response").once("value")
-    .then((snapshot) => {
-      const response = snapshot.val();
-      if (response !== null) {
-        console.log(`Request: ${response}`);
-      } else {
-        console.log("Request not found in the database.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error retrieving data:", error);
-    });
+  // userRef.child("response").once("value")
+  //   .then((snapshot) => {
+  //     const response = snapshot.val();
+  //     if (response !== null) {
+  //       console.log(`Request: ${response}`);
+  //     } else {
+  //       console.log("Request not found in the database.");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error retrieving data:", error);
+  //   });
 
 
 } else {
