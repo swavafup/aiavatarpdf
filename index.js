@@ -199,7 +199,9 @@ if (user) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        console.log(userData);
+        console.log(userData.request);
+	console.log(userData.response);
+
       } else {
         console.log('No data available for this user.');
       }
