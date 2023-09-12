@@ -8,6 +8,7 @@ const { Configuration, OpenAIApi } = require("openai");
 
 require('dotenv').config();
 
+const requestgv = "";
 
 const webApp = express();
 
@@ -105,6 +106,8 @@ webApp.post('/dialogflow', async (req, res) => {
     let action = req.body.queryResult.action;
     let queryText = req.body.queryResult.queryText;
 
+    requestgv = queryText;
+
     if (action === 'input.unknown') {
         let result = await textGeneration(queryText);
         if (result.status == 1) {
@@ -161,6 +164,7 @@ const auth = getAuth(firebaseApp);
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
+
 // const userCredential = firebase.auth().signInWithEmailAndPassword(email, password);
 
 
@@ -205,7 +209,7 @@ if (user) {
 	const newData = {	
             email : "sample email",
             status : "true",
-            request : "sample request",
+            request : requestgv,
             response : "sample response"
 	};
 
