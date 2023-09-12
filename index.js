@@ -193,7 +193,7 @@ if (user) {
   const childPath = 'request'; // Replace with the actual child node name
 
 // Create a reference to the child location
-  const childRef = child(userRef, childPath);
+  const childRef = ref(userRef, childPath);
 
   // Retrieve the "request" field
   childRef.once("value")
