@@ -272,56 +272,56 @@ webApp.post('/dialogflow', async (req, res) => {
 });
 
 
-auth.onAuthStateChanged((user) => {
-if (user) {
-  // Assuming you have stored the user's unique identifier (UID) in your database under "users"
-  const userId = user.uid;
+// auth.onAuthStateChanged((user) => {
+// if (user) {
+//   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
+//   const userId = user.uid;
   
 	
-  // Reference to the user's data
-  const database = getDatabase();
-  const userRef = ref(database, userId);
-  console.log(userRef);
-  const childPath = "request"; // Replace with the actual child node name
+//   // Reference to the user's data
+//   const database = getDatabase();
+//   const userRef = ref(database, userId);
+//   console.log(userRef);
+//   const childPath = "request"; // Replace with the actual child node name
 
-// Create a reference to the child location
-  // const childRef = ref(userRef, childPath);
+// // Create a reference to the child location
+//   // const childRef = ref(userRef, childPath);
 
-  get(userRef)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        console.log(userData.request);
-	console.log(userData.response);
-	console.log(userData.email);
-	const newData = {	
-            email : "sample email",
-            status : "true",
-            request : requestgv,
-            response : "sample response"
-	};
+//   get(userRef)
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         const userData = snapshot.val();
+//         console.log(userData.request);
+// 	console.log(userData.response);
+// 	console.log(userData.email);
+// 	const newData = {	
+//             email : "sample email",
+//             status : "true",
+//             request : requestgv,
+//             response : "sample response"
+// 	};
 
-	const userRef = ref(database, userId); // Ensure you have the correct userRef
-      	set(userRef, newData)
-          .then(() => {
-            console.log('Data updated successfully.');
-          })
-          .catch((error) => {
-            console.error('Error setting data:', error);
-          });
-      } else {
-        console.log('No data available for this user.');
-      }
-   })
-    .catch((error) => {
-      console.error('Error getting data:', error);
-    });
+// 	const userRef = ref(database, userId); // Ensure you have the correct userRef
+//       	set(userRef, newData)
+//           .then(() => {
+//             console.log('Data updated successfully.');
+//           })
+//           .catch((error) => {
+//             console.error('Error setting data:', error);
+//           });
+//       } else {
+//         console.log('No data available for this user.');
+//       }
+//    })
+//     .catch((error) => {
+//       console.error('Error getting data:', error);
+//     });
 
 
-} else {
-  console.log("User is not authenticated. Please log in first.");
-}
-})
+// } else {
+//   console.log("User is not authenticated. Please log in first.");
+// }
+// })
 
 
 webApp.listen(PORT, () => {
