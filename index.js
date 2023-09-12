@@ -184,12 +184,12 @@ auth.onAuthStateChanged((user) => {
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
   const userId = user.uid;
-  console.log(userId);
+  
 	
   // Reference to the user's data
   const database = getDatabase();
   const userRef = ref(database, userId);
-	
+  console.log(userRef);
   const childPath = "request"; // Replace with the actual child node name
 
 // Create a reference to the child location
