@@ -177,6 +177,7 @@ signInWithEmailAndPassword(auth, email, password)
 
 const user = auth.currentUser;
 
+auth.onAuthStateChanged((user) => {
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
   const userId = user.uid;
@@ -229,6 +230,7 @@ if (user) {
 
 } else {
   console.log("User is not authenticated. Please log in first.");
+}
 }
 
 // Data to be saved
