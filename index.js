@@ -10,6 +10,58 @@ require('dotenv').config();
 
 const requestgv = "";
 
+const firebase = require('firebase/app');
+require('firebase/auth');
+require('firebase/database');
+
+const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+const { getDatabase, ref, get, set} = require("firebase/database");
+
+
+
+
+firebaseConfig = {
+    'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
+    'authDomain': "loginwithstreamlit.firebaseapp.com",
+    'projectId': "loginwithstreamlit",
+    'databaseURL': "https://loginwithstreamlit-default-rtdb.firebaseio.com",
+    'storageBucket': "loginwithstreamlit.appspot.com",
+    'messagingSenderId': "286638028806",
+    'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
+    'measurementId': "G-SFTNJ19HS6"
+}
+
+
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+
+const auth = getAuth(firebaseApp);
+// console.log(auth);
+
+const email = "swavaf3693@gmail.com";
+const password = "Swavaf@123";
+
+
+// const userCredential = firebase.auth().signInWithEmailAndPassword(email, password);
+
+
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // User is signed in
+    const user = userCredential.user;
+    console.log("User signed in:", user);
+  })
+  .catch((error) => {
+    // Handle errors
+    console.error("Sign-in error:", error);
+  });
+
+// Reference to the database
+// const database = firebaseApp.database();
+
+const user = auth.currentUser;
+
 const webApp = express();
 
 webApp.use(express.urlencoded({
@@ -101,6 +153,41 @@ webApp.get('/', (req, res) => {
 });
 
 
+// webApp.post('/dialogflow', async (req, res) => {
+    
+//     let action = req.body.queryResult.action;
+//     let queryText = req.body.queryResult.queryText;
+
+//     requestgv = queryText;
+//     console.log(requestgv);
+
+    
+
+//     if (action === 'input.unknown') {
+//         let result = await textGeneration(queryText);
+//         if (result.status == 1) {
+//             res.send(
+//                 {
+//                     fulfillmentText: result.response
+//                 }
+//             );
+//         } else {
+//             res.send(
+//                 {
+//                     fulfillmentText: `Sorry, I'm not able to help with that.`
+//                 }
+//             );
+//         }
+//     } else {
+//         res.send(
+//             {
+//                 fulfillmentText: `No handler for the action ${action}.`
+//             }
+//         );
+//     }
+// });
+
+
 webApp.post('/dialogflow', async (req, res) => {
     
     let action = req.body.queryResult.action;
@@ -108,6 +195,57 @@ webApp.post('/dialogflow', async (req, res) => {
 
     requestgv = queryText;
     console.log(requestgv);
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+  // Assuming you have stored the user's unique identifier (UID) in your database under "users"
+        const userId = user.uid;
+  
+	
+  // Reference to the user's data
+        const database = getDatabase();
+        const userRef = ref(database, userId);
+        console.log(userRef);
+        const childPath = "request"; // Replace with the actual child node name
+
+// Create a reference to the child location
+  // const childRef = ref(userRef, childPath);
+
+        get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              console.log(userData.request);
+	      console.log(userData.response);
+	      console.log(userData.email);
+	      const newData = {	
+                  email : "sample email",
+                  status : "true",
+                  request : requestgv,
+                  response : "sample response"
+	      };
+
+	      const userRef = ref(database, userId); // Ensure you have the correct userRef
+      	      set(userRef, newData)
+                .then(() => {
+                  console.log('Data updated successfully.');
+                })
+                .catch((error) => {
+                  console.error('Error setting data:', error);
+                });
+            } else {
+              console.log('No data available for this user.');
+            }
+         })
+          .catch((error) => {
+            console.error('Error getting data:', error);
+          });
+
+
+      } else {
+        console.log("User is not authenticated. Please log in first.");
+      }
+      })
 
     if (action === 'input.unknown') {
         let result = await textGeneration(queryText);
@@ -133,57 +271,6 @@ webApp.post('/dialogflow', async (req, res) => {
     }
 });
 
-const firebase = require('firebase/app');
-require('firebase/auth');
-require('firebase/database');
-
-const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
-const { getDatabase, ref, get, set} = require("firebase/database");
-
-
-
-
-firebaseConfig = {
-    'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
-    'authDomain': "loginwithstreamlit.firebaseapp.com",
-    'projectId': "loginwithstreamlit",
-    'databaseURL': "https://loginwithstreamlit-default-rtdb.firebaseio.com",
-    'storageBucket': "loginwithstreamlit.appspot.com",
-    'messagingSenderId': "286638028806",
-    'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
-    'measurementId': "G-SFTNJ19HS6"
-}
-
-
-// Initialize Firebase
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-
-const auth = getAuth(firebaseApp);
-// console.log(auth);
-
-const email = "swavaf3693@gmail.com";
-const password = "Swavaf@123";
-
-
-// const userCredential = firebase.auth().signInWithEmailAndPassword(email, password);
-
-
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // User is signed in
-    const user = userCredential.user;
-    console.log("User signed in:", user);
-  })
-  .catch((error) => {
-    // Handle errors
-    console.error("Sign-in error:", error);
-  });
-
-// Reference to the database
-// const database = firebaseApp.database();
-
-const user = auth.currentUser;
 
 auth.onAuthStateChanged((user) => {
 if (user) {
@@ -231,74 +318,10 @@ if (user) {
     });
 
 
-
-
-
-
-
-  // Retrieve the "request" field
- //  childRef.once("value")
- //    .then((snapshot) => {
- //      const request = snapshot.val();
- //      if (request !== null) {
- //        console.log(`Request: ${request}`);
-	// const newData = {	
- //            email : "email sample",
- //            status : "true",
- //            request : "request sample",
- //            response : "response sample"
-	// };
-	// ref(database, userId).push(newData)
- //  .then(() => {
- //    console.log("Data saved successfully");
- //  })
- //  .catch((error) => {
- //    console.error("Data save error:", error);
- //  });
- //      } else {
- //        console.log("Request not found in the database.");
- //      }
- //    })
- //    .catch((error) => {
- //      console.error("Error retrieving data:", error);
- //    });
-
-    // Retrieve the "response" field
-  // userRef.child("response").once("value")
-  //   .then((snapshot) => {
-  //     const response = snapshot.val();
-  //     if (response !== null) {
-  //       console.log(`Request: ${response}`);
-  //     } else {
-  //       console.log("Request not found in the database.");
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error retrieving data:", error);
-  //   });
-
-
 } else {
   console.log("User is not authenticated. Please log in first.");
 }
 })
-
-// Data to be saved
-// const newData = {
-//             email : email,
-//             status : "false",
-//             request : "",
-//             response : ""
-// };
-
-// // Push data to a specific location (e.g., "users")
-// database.ref("users").push(newData)
-//   .then(() => {
-//     console.log("Data saved successfully");
-//   })
-//   .catch((error) => {
-//     console.error("Data save error:", error);
-//   });
 
 
 webApp.listen(PORT, () => {
