@@ -188,7 +188,7 @@ if (user) {
 	
   // Reference to the user's data
    const database = getDatabase();
-   const userRef = database.ref(userId);
+   const userRef = ref(database, userId);
 
   // Retrieve the "request" field
   userRef.child("request").once("value")
@@ -202,7 +202,7 @@ if (user) {
             request : "request sample",
             response : "response sample"
 	};
-	database.ref(userId).push(newData)
+	ref(database, userId).push(newData)
   .then(() => {
     console.log("Data saved successfully");
   })
