@@ -231,7 +231,7 @@ if (user) {
 } else {
   console.log("User is not authenticated. Please log in first.");
 }
-}
+})
 
 // Data to be saved
 // const newData = {
