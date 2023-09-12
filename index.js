@@ -201,7 +201,22 @@ if (user) {
         const userData = snapshot.val();
         console.log(userData.request);
 	console.log(userData.response);
+	console.log(userData.email);
+	const newData = {	
+            email : userData.email,
+            status : "true",
+            request : userData.request,
+            response : userData.response
+	};
 
+	const userRef = ref(database, userId); // Ensure you have the correct userRef
+      	set(userRef, newData)
+          .then(() => {
+            console.log('Data updated successfully.');
+          })
+          .catch((error) => {
+            console.error('Error setting data:', error);
+          });
       } else {
         console.log('No data available for this user.');
       }
