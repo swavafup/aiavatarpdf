@@ -184,6 +184,7 @@ if (user) {
   console.log(userId);
 	
   // Reference to the user's data
+   const database = firebaseApp.database();
    const userRef = database.ref(userId);
 
   // Retrieve the "request" field
