@@ -187,11 +187,16 @@ if (user) {
   console.log(userId);
 	
   // Reference to the user's data
-   const database = getDatabase();
-   const userRef = ref(database, userId);
+  const database = getDatabase();
+  const userRef = ref(database, userId);
+	
+  const childPath = 'request'; // Replace with the actual child node name
+
+// Create a reference to the child location
+  const childRef = child(userRef, childPath);
 
   // Retrieve the "request" field
-  userRef.child("request").once("value")
+  childRef.once("value")
     .then((snapshot) => {
       const request = snapshot.val();
       if (request !== null) {
