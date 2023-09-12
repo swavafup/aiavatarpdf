@@ -180,7 +180,8 @@ const user = auth.currentUser;
 if (user) {
   // Assuming you have stored the user's unique identifier (UID) in your database under "users"
   const userId = user.uid;
-
+  console.log(userId);
+	
   // Reference to the user's data
    const userRef = database.ref(userId);
 
