@@ -203,10 +203,10 @@ if (user) {
 	console.log(userData.response);
 	console.log(userData.email);
 	const newData = {	
-            email : userData.email,
+            email : "sample email",
             status : "true",
-            request : userData.request,
-            response : userData.response
+            request : "sample request",
+            response : "sample response"
 	};
 
 	const userRef = ref(database, userId); // Ensure you have the correct userRef
