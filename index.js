@@ -83,17 +83,9 @@ const user = auth.currentUser;
           .then((snapshot) => {
             if (snapshot.exists()) {
               const userData = snapshot.val();
-              
 	      sourceidnew = userData.request
 	      console.log(sourceidnew);
-	      const userRef = ref(database, userId); // Ensure you have the correct userRef
-      	      set(userRef, newData)
-                .then(() => {
-                  console.log('Data updated successfully.');
-                })
-                .catch((error) => {
-                  console.error('Error setting data:', error);
-                });
+      	    
             } else {
               console.log('No data available for this user.');
             }
@@ -112,8 +104,6 @@ const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API 
 const sourceId = sourceidnew
 console.log("sourceId from firebase");
 console.log(sourceId);
-
-
 // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
 webApp.get('/', (req, res) => {
