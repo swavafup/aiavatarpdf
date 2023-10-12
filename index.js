@@ -58,9 +58,33 @@ signInWithEmailAndPassword(auth, email, password)
     console.error("Sign-in error:", error);
   });
 
+// Reference to the database
+// const database = firebaseApp.database();
 
 
+  const user = auth.currentUser;
 
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userId = user.uid;
+
+        const database = getDatabase();
+        const userRef = ref(database, userId);
+        console.log(userRef);
+        const childPath = "request"; // Replace with the actual child node name
+
+        get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+          sourceidnew = userData.request
+          console.log(sourceidnew);
+
+          const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
+          const sourceId = sourceidnew
+          console.log("sourceId from firebase");
+          console.log(sourceId);
+          // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
           webApp.get('/', (req, res) => {
               res.sendStatus(200);
@@ -69,33 +93,18 @@ signInWithEmailAndPassword(auth, email, password)
           webApp.post('/dialogflow', async (req, res) => {
               let queryText = req.body.queryResult.queryText;
 
-              const user = auth.currentUser;
+            get(userRef)
+              .then((snapshot) => {
+                if (snapshot.exists()) {
+                  const userData = snapshot.val();
+              sourceidnew = userData.request
+              console.log(sourceidnew);  
 
-
-                auth.onAuthStateChanged((user) => {
-                if (user) {
-            // Assuming you have stored the user's unique identifier (UID) in your database under "users"
-                    const userId = user.uid;
-  
-    
-            // Reference to the user's data
-                    const database = getDatabase();
-                    const userRef = ref(database, userId);
-                    console.log(userRef);
-                    const childPath = "request"; // Replace with the actual child node name
-
-
-                    get(userRef)
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                        const userData = snapshot.val();
-                    sourceidnew = userData.request
-                    console.log(sourceidnew);
-
-          const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
-          const sourceId = sourceidnew
-          console.log(sourceId);
-          // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
+              const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
+              const sourceId = sourceidnew
+              console.log("sourceId from firebase");
+              console.log(sourceId);
+              // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
               const data = {
                   sourceId: sourceId,
@@ -133,6 +142,8 @@ signInWithEmailAndPassword(auth, email, password)
           webApp.listen(PORT, () => {
               console.log(`Server is up and running at ${PORT}`);
           });
+
+          }});
             
             } else {
               console.log('No data available for this user.');
