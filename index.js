@@ -50,7 +50,7 @@ webApp.post('/dialogflow', async (req, res) => {
         console.log("Response:", error.response.data);
 
         res.send({
-            fulfillmentText: 'Sorry, I'm not able to help with that.'
+            fulfillmentText: "Sorry, Im not able to help with that."
         });
     }
 });
