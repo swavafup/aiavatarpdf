@@ -44,6 +44,7 @@ const auth = getAuth(firebaseApp);
 const email = "swavaf3693@gmail.com";
 const password = "Swavaf@123";
 
+const sourceid = "";
 
 
 signInWithEmailAndPassword(auth, email, password)
@@ -83,7 +84,7 @@ const user = auth.currentUser;
             if (snapshot.exists()) {
               const userData = snapshot.val();
               console.log(userData.request);
-	      
+	      sourceid = userData.request
 		      const userRef = ref(database, userId); // Ensure you have the correct userRef
       	      set(userRef, newData)
                 .then(() => {
@@ -107,7 +108,12 @@ const user = auth.currentUser;
       })
 
 const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
-const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
+const sourceId = sourceid
+console.log("sourceId from firebase");
+console.log(sourceId);
+
+
+// const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
 webApp.get('/', (req, res) => {
     res.sendStatus(200);
