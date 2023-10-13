@@ -151,9 +151,6 @@ const user = auth.currentUser;
         console.log(userRef);
         const childPath = "request"; // Replace with the actual child node name
 
-// Create a reference to the child location
-  // const childRef = ref(userRef, childPath);
-
         get(userRef)
           .then((snapshot) => {
             if (snapshot.exists()) {
@@ -175,11 +172,11 @@ const user = auth.currentUser;
       }
       })
 
-   const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
-   let sourceId = sourceidnew
-   console.log("sourceId from firebase");
-   console.log(sourceId);
-   // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
+      const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
+      let sourceId = sourceidnew
+      console.log("sourceId from firebase");
+      console.log(sourceId);
+      // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
     const data = {
         sourceId: sourceId,
