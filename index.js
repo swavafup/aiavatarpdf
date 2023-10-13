@@ -38,13 +38,13 @@ firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
-const auth = getAuth(firebaseApp);
-// console.log(auth);
+// const auth = getAuth(firebaseApp);
+// // console.log(auth);
 
-const email = "swavaf3693@gmail.com";
-const password = "Swavaf@123";
+// const email = "swavaf3693@gmail.com";
+// const password = "Swavaf@123";
 
-let sourceidnew = "";
+// let sourceidnew = "";
 
 
 // signInWithEmailAndPassword(auth, email, password)
