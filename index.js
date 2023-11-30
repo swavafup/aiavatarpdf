@@ -19,17 +19,6 @@ require('firebase/database');
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
 
-// firebaseConfig = {
-//     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
-//     'authDomain': "loginwithstreamlit.firebaseapp.com",
-//     'projectId': "loginwithstreamlit",
-//     'databaseURL': "https://loginwithstreamlit-default-rtdb.firebaseio.com",
-//     'storageBucket': "loginwithstreamlit.appspot.com",
-//     'messagingSenderId': "286638028806",
-//     'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
-//     'measurementId': "G-SFTNJ19HS6"
-// }
-
 firebaseConfig = {
     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
     'authDomain': "loginwithstreamlit.firebaseapp.com",
@@ -38,10 +27,8 @@ firebaseConfig = {
     'storageBucket': "loginwithstreamlit.appspot.com",
     'messagingSenderId': "286638028806",
     'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
-    'measurementId': "G-SFTNJ19HS6",
-    'serviceAccount': "/mount/src/milestone_ai/loginwithstreamlit-firebase-adminsdk-z722e-0f562e79f0.json"
+    'measurementId': "G-SFTNJ19HS6"
 }
-
 
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -62,7 +49,7 @@ webApp.post('/dialogflow', async (req, res) => {
     // const email = "admin@gmail.com";
     // const password = "admin@123";
 
-    signInWithEmailAndPassword(auth, "irirobotictslab@uaeu.com", "iriroboticslab@123")
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // User is signed in
             const user = userCredential.user;
