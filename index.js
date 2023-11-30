@@ -19,8 +19,16 @@ require('firebase/database');
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
 
-
-
+// firebaseConfig = {
+//     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
+//     'authDomain': "loginwithstreamlit.firebaseapp.com",
+//     'projectId': "loginwithstreamlit",
+//     'databaseURL': "https://loginwithstreamlit-default-rtdb.firebaseio.com",
+//     'storageBucket': "loginwithstreamlit.appspot.com",
+//     'messagingSenderId': "286638028806",
+//     'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
+//     'measurementId': "G-SFTNJ19HS6"
+// }
 
 firebaseConfig = {
     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
@@ -30,7 +38,8 @@ firebaseConfig = {
     'storageBucket': "loginwithstreamlit.appspot.com",
     'messagingSenderId': "286638028806",
     'appId': "1:286638028806:web:931ff9cffb9421e4b42b87",
-    'measurementId': "G-SFTNJ19HS6"
+    'measurementId': "G-SFTNJ19HS6",
+    'serviceAccount': "/mount/src/milestone_ai/loginwithstreamlit-firebase-adminsdk-z722e-0f562e79f0.json"
 }
 
 
