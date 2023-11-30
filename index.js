@@ -48,7 +48,9 @@ webApp.post('/dialogflow', async (req, res) => {
 	
     // const email = "admin@gmail.com";
     // const password = "admin@123";
-
+    
+    console.log(email);
+	
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // User is signed in
