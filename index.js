@@ -116,11 +116,11 @@ webApp.post('/dialogflow', async (req, res) => {
     const auth = getAuth(firebaseApp);
     // console.log(auth);
 
-    // const email = "irirobotictslab@uaeu.com";
-    // const password = "iriroboticslab@123";
+    const email = "irirobotictslab@uaeu.com";
+    const password = "iriroboticslab@123";
 	
-    const email = "admin@gmail.com";
-    const password = "admin@123";
+    // const email = "admin@gmail.com";
+    // const password = "admin@123";
 
     
 
