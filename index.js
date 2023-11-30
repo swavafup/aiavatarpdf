@@ -53,21 +53,21 @@ webApp.post('/dialogflow', async (req, res) => {
     // const email = "admin@gmail.com";
     // const password = "admin@123";
 
-signInWithEmailAndPassword(auth, "irirobotictslab@uaeu.com", "iriroboticslab@123")
-  .then((userCredential) => {
-    // User is signed in
-    const user = userCredential.user;
-    console.log("User signed in:", user);
-  })
-  .catch((error) => {
-    // Handle errors
-    console.error("Sign-in error:", error);
-  });
+    signInWithEmailAndPassword(auth, "irirobotictslab@uaeu.com", "iriroboticslab@123")
+        .then((userCredential) => {
+            // User is signed in
+            const user = userCredential.user;
+            console.log("User signed in:", user);
+         })
+         .catch((error) => {
+            // Handle errors
+            console.error("Sign-in error:", error);
+         });
 
-// Reference to the database
-// const database = firebaseApp.database();
+       // Reference to the database
+       // const database = firebaseApp.database();
 
-const user = auth.currentUser;
+    const user = auth.currentUser;
 
 
     auth.onAuthStateChanged((user) => {
