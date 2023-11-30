@@ -41,7 +41,7 @@ webApp.post('/dialogflow', async (req, res) => {
     let queryText = req.body.queryResult.queryText;
 
     const auth = getAuth(firebaseApp);
-    console.log(auth);
+    // console.log(auth);
 
     const email = "irirobotictslab@uaeu.com";
     const password = "iriroboticslab@123";
