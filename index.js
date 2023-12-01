@@ -65,7 +65,7 @@ webApp.post('/dialogflow', async (req, res) => {
        // Reference to the database
        // const database = firebaseApp.database();
 
-    const user = auth.currentUser;
+const user = auth.currentUser;
 
 
     auth.onAuthStateChanged((user) => {
