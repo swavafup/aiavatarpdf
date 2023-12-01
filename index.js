@@ -55,7 +55,7 @@ webApp.post('/dialogflow', async (req, res) => {
         .then((userCredential) => {
             // User is signed in
             const user = userCredential.user;
-            console.log("User signed in:", user);
+            //console.log("User signed in:", user);
          })
          .catch((error) => {
             // Handle errors
@@ -65,81 +65,81 @@ webApp.post('/dialogflow', async (req, res) => {
        // Reference to the database
        // const database = firebaseApp.database();
 
-    const user = auth.currentUser;
+        const user = auth.currentUser;
+        console.log("User signed in:", user);
 
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-  // Assuming you have stored the user's unique identifier (UID) in your database under "users"
-        const userId = user.uid;
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+      // Assuming you have stored the user's unique identifier (UID) in your database under "users"
+            const userId = user.uid;
   
     
-  // Reference to the user's data
-        const database = getDatabase();
-        const userRef = ref(database, userId);
-        console.log(userRef);
-        const childPath = "sourceid"; // Replace with the actual child node name
-	console.log("sourceid: ");
-	console.log(childPath);
+      // Reference to the user's data
+            const database = getDatabase();
+            const userRef = ref(database, userId);
+            console.log(userRef);
+            const childPath = "sourceid"; // Replace with the actual child node name
+	    console.log("sourceid: ");
+	    console.log(childPath);
 
-        get(userRef)
-          .then((snapshot) => {
-            if (snapshot.exists()) {
-              const userData = snapshot.val();
-              sourceidnew = userData.request
-              console.log(sourceidnew);
+            get(userRef)
+              .then((snapshot) => {
+                if (snapshot.exists()) {
+                  const userData = snapshot.val();
+                  sourceidnew = userData.request
+                  console.log(sourceidnew);
             
-            } else {
-              console.log('No data available for this user.');
-            }
-         })
-          .catch((error) => {
-            console.error('Error getting data:', error);
-          });
+                } else {
+                  console.log('No data available for this user.');
+                }
+             })
+              .catch((error) => {
+                console.error('Error getting data:', error);
+              });
 
 
-      } else {
-        console.log("User is not authenticated. Please log in first.");
-      }
-      })
+          } else {
+            console.log("User is not authenticated. Please log in first.");
+          }
+          })
 
-      const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
-      let sourceId = sourceidnew
-      console.log("sourceId from firebase");
-      console.log(sourceId);
-      // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
+          const apiKey = 'sec_qT39IlsF7TNBBS8Q2GNomWd9vpcSzYHN'; // Replace with your API key
+          let sourceId = sourceidnew
+          console.log("sourceId from firebase");
+          console.log(sourceId);
+          // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
-      const data = {
-          sourceId: sourceId,
-          messages: [
-              {
-                  role: "user",
-                  content: queryText,
+          const data = {
+              sourceId: sourceId,
+              messages: [
+                  {
+                      role: "user",
+                      content: queryText,
+                  },
+              ],
+          };
+
+          const config = {
+              headers: {
+                  "x-api-key": apiKey,
+                  "Content-Type": "application/json",
               },
-          ],
-      };
+          };
 
-      const config = {
-          headers: {
-              "x-api-key": apiKey,
-              "Content-Type": "application/json",
-          },
-      };
+          try {
+              const response = await axios.post("https://api.chatpdf.com/v1/chats/message", data, config);
 
-      try {
-          const response = await axios.post("https://api.chatpdf.com/v1/chats/message", data, config);
+              res.send({
+                  fulfillmentText: response.data.content
+              });
+          } catch (error) {
+              console.error("Error:", error.message);
+              console.log("Response:", error.response.data);
 
-          res.send({
-              fulfillmentText: response.data.content
-          });
-      } catch (error) {
-          console.error("Error:", error.message);
-          console.log("Response:", error.response.data);
-
-          res.send({
-              fulfillmentText: "Sorry, Im not able to help with that."
-          });
-      }
+              res.send({
+                  fulfillmentText: "Sorry, Im not able to help with that."
+              });
+          }
 });
 
 webApp.listen(PORT, () => {
