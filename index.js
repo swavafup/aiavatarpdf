@@ -19,6 +19,8 @@ require('firebase/database');
 const { getAuth, signInWithEmailAndPassword, FetchProvider  } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
 
+FetchProvider.initialize()
+
 firebaseConfig = {
     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
     'authDomain': "loginwithstreamlit.firebaseapp.com",
