@@ -65,7 +65,7 @@ webApp.post('/dialogflow', async (req, res) => {
        // Reference to the database
        // const database = firebaseApp.database();
 
-const user = auth.currentUser;
+    const user = auth.currentUser;
 
 
     auth.onAuthStateChanged((user) => {
@@ -109,37 +109,37 @@ const user = auth.currentUser;
       console.log(sourceId);
       // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
 
-    const data = {
-        sourceId: sourceId,
-        messages: [
-            {
-                role: "user",
-                content: queryText,
-            },
-        ],
-    };
+      const data = {
+          sourceId: sourceId,
+          messages: [
+              {
+                  role: "user",
+                  content: queryText,
+              },
+          ],
+      };
 
-    const config = {
-        headers: {
-            "x-api-key": apiKey,
-            "Content-Type": "application/json",
-        },
-    };
+      const config = {
+          headers: {
+              "x-api-key": apiKey,
+              "Content-Type": "application/json",
+          },
+      };
 
-    try {
-        const response = await axios.post("https://api.chatpdf.com/v1/chats/message", data, config);
+      try {
+          const response = await axios.post("https://api.chatpdf.com/v1/chats/message", data, config);
 
-        res.send({
-            fulfillmentText: response.data.content
-        });
-    } catch (error) {
-        console.error("Error:", error.message);
-        console.log("Response:", error.response.data);
+          res.send({
+              fulfillmentText: response.data.content
+          });
+      } catch (error) {
+          console.error("Error:", error.message);
+          console.log("Response:", error.response.data);
 
-        res.send({
-            fulfillmentText: "Sorry, Im not able to help with that."
-        });
-    }
+          res.send({
+              fulfillmentText: "Sorry, Im not able to help with that."
+          });
+      }
 });
 
 webApp.listen(PORT, () => {
