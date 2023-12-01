@@ -79,6 +79,8 @@ webApp.post('/dialogflow', async (req, res) => {
         const userRef = ref(database, userId);
         console.log(userRef);
         const childPath = "sourceid"; // Replace with the actual child node name
+	console.log("sourceid: ");
+	console.log(childPath);
 
         get(userRef)
           .then((snapshot) => {
