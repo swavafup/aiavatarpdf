@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+global.fetch = require('node-fetch');
 
 require('dotenv').config();
 
@@ -15,7 +16,6 @@ const PORT = process.env.PORT || 5000;
 const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
-const { FetchProvider } = require('@firebase/auth');
 
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
@@ -34,9 +34,6 @@ firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-// Initialize FetchProvider
-const fetchProvider = new FetchProvider();
-fetchProvider.initialize();
 
 webApp.get('/', (req, res) => {
     res.sendStatus(200);
