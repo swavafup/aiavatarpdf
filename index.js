@@ -19,7 +19,7 @@ require('firebase/database');
 const { getAuth, signInWithEmailAndPassword, FetchProvider  } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
 
-FetchProvider.initialize()
+// FetchProvider.initialize()
 
 firebaseConfig = {
     'apiKey': "AIzaSyC_1yhveazgVtX-hfmZh6OwFGvODNgCgG4",
