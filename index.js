@@ -16,7 +16,7 @@ const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
-const { getAuth, signInWithEmailAndPassword, , FetchProvider  } = require("firebase/auth");
+const { getAuth, signInWithEmailAndPassword, FetchProvider  } = require("firebase/auth");
 const { getDatabase, ref, get, set} = require("firebase/database");
 
 firebaseConfig = {
