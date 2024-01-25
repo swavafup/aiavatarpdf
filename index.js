@@ -108,6 +108,11 @@ webApp.post('/dialogflow', async (req, res) => {
           console.log("sourceId from firebase");
           console.log(sourceId);
           // const sourceId = 'src_g69WoiZ85Mdh52ziav7PM'; // Replace with your source ID
+	  if (queryText === 'السلام عليكم')
+	  {
+		  queryText = 'السلام عليكم ,اكتب ملخصًا عن هذه الوثيقة؟ والنقطة 5 الكلمات الرئيسية؟ واكتب 3 أسئلة نموذجية بخصوص هذه الوثيقة؟ واطلب من المستخدم أن لا تتردد في طرح السؤال؟'
+	  }
+		
 
           const data = {
               sourceId: sourceId,
